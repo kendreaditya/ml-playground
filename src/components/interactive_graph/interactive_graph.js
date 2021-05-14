@@ -6,10 +6,16 @@ const InteractiveGraph = () => {
     const [mouseDown, setMouseDown] = useState(false);
     const [points, setPoints] = useState([]);
     const [cluster, setCluster] = useState(0);
-    const colors = ["#60A6F3", "#F7BD28"]
+    const colors = ["#60A6F3", "#F7BD28"];
+    const points_max = 250;
 
-    const addPoint = event => {
-        setPoints([...points, [event.pageX, event.pageY, cluster]])
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function addPoint(event, onClick=false) {
+        if((mouseDown || onClick) && points.length < points_max)
+            setPoints([...points, [event.pageX, event.pageY, cluster]])
     }
 
     return (
@@ -18,8 +24,9 @@ const InteractiveGraph = () => {
                 {colors.map((color, idx)=>(
                     <button className="color" style={{backgroundColor: color}} onClick={()=>(setCluster(idx))}></button>
                 ))}
+                <label>{points.length}/{points_max}</label>
             </div>
-            <span className="interactive-graph" onMouseDown={addPoint}>
+            <span className="interactive-graph" onMouseDown={()=>setMouseDown(true)} onMouseUp={()=>setMouseDown(false)} onMouseMove={addPoint} onClick={event => addPoint(event, true)}>
                 {points.map(([x, y, cluster])=>{
                     console.log(x,y);
                     return (
