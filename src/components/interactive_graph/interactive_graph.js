@@ -3,49 +3,36 @@ import React, {useEffect, useState} from 'react';
 import './interactive_graph.css';
 
 const InteractiveGraph = () => {
-    const graph_size = {x_lim: 50, y_lim: 50};
-    const [mouseDown, setMouseDown] = useState(false)
+    const [mouseDown, setMouseDown] = useState(false);
     const [points, setPoints] = useState([]);
+    const [cluster, setCluster] = useState(0);
     const colors = ["#60A6F3", "#F7BD28"]
-    const [cluster, setCluster] = useState(0)
 
-    const handleDocumentMouseUp = event => {
-        setMouseDown((event.buttons==0 ? false : true));
-    };
-
-    const addPoint = (x, y) => {
-        points.push([x,y])
+    const addPoint = event => {
+        setPoints([...points, [event.pageX, event.pageY, cluster]])
     }
-
-    // useEffect(()=>(console.log(points)), [points])
-
-    console.log("d")
 
     return (
         <div>
-            <div>
+            <div className="colors">
                 {colors.map((color, idx)=>(
-                    <button className="cluster-color" style={{
-                        backgroundColor: color,
-                        borderRadius: "50%",
-                        display: "inline-block",
-                        height: "20px",
-                        width: "20px",
-                        margin: "5px"
-                    }} onClick={()=>(setCluster(idx))}/>
+                    <button className="color" style={{backgroundColor: color}} onClick={()=>(setCluster(idx))}></button>
                 ))}
             </div>
-            <div className="interactive-graph" onMouseUp={handleDocumentMouseUp} onMouseDown={handleDocumentMouseUp}>
-                {[...Array(graph_size.x_lim)].map((_, y) => (
-                    <div className="interactive-graph-row">
-                        {[...Array(graph_size.y_lim)].map((_, x) => (
-                            <Point x={x} y={y} addPoint={addPoint} color={colors[cluster]} mouseDown={mouseDown}/>
-                        ))}
-                    </div>
-                ))}
-            </div>
+            <span className="interactive-graph" onMouseDown={addPoint}>
+                {points.map(([x, y, cluster])=>{
+                    console.log(x,y);
+                    return (
+                        <span className="point" style={{
+                            backgroundColor: colors[cluster],
+                            left: x,
+                            top: y
+                        }}/>
+                    )
+                })}
+            </span>
         </div>
-    );
+    )
 }
 
 export default InteractiveGraph;
