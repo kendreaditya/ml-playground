@@ -1,0 +1,16 @@
+.point {
+  margin: 0;
+  padding: 0;
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+}
+
+.interactive-graph {
+  display: inline-block;
+  background-color: #dddddd;
+}
+
+.interactive-graph-row {
+  line-height: 0;
+}
