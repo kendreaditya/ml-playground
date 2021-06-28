@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+    background-color: #E8EAED;
+}
+
+#flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 800px) {
+    #flex-container {
+        flex-wrap: wrap;
+    }
+}
+
+#parameter-item {
+    flex: 0 1 40em;
+}
+
+.col {
+    padding-right: 25px;
+    padding-left: 25px;
+    flex: 0 1 20em;
+}
+
+.container {
+    border-radius: 10px;
+    margin: 10px auto 10px auto;
+}
+
+.container.graph {
+    padding-top: 100%;
+}
+
+.container.parameter {
+    padding-top: 50%;
+}
+
+h1 {
+    text-align: center;
+}
