@@ -32,6 +32,8 @@ const InteractiveGraph = () => {
         }
     }
 
+    // Calc point relative to graph and then add x, y as a point to graph chart (from libaray)
+
     return (
         <div>
             <div className="colors">

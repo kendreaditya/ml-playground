@@ -1,6 +1,32 @@
-# Getting Started with Create React App
+# Machine Learning Playground
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Design
+
+Endpoints:
+- POST /model/create
+    - Model Type
+        - SVM
+        - k-Nearest Neighbors
+        - Decision Trees
+        - Naive Bayes
+        - ANN
+        - Logistic Regression
+    - Epochs
+        - 1-100
+    - Batch Size
+        - 16, 32, 64, 128
+    - Optimizer
+        - SGD or ADAM
+    Return Model ID
+
+- GET /model/:model_id/epoch/1
+    - Loss Value
+    - Accuracy %
+    - Gradient Map
+        - Matrix (2d array)
+    - TSNE
+        - [tsne_x, tsne_y, cluster] for every point
+
 
 ## Available Scripts
 

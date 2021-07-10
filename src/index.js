@@ -1,37 +1,23 @@
 import ReactDOM from 'react-dom';
-import InteractiveGraph from './components/interactive_graph/interactive_graph'
-import DataSlider from './components/interactive_graph/data_slider'
-import './index.css'
-
-const Hyperprameter = () => {
-  return (<>
-    <div className="container parameter" style={{ "background": "#FFFFFF" }}>
-    </div>
-  </>)
-}
-
-const Graph = () => {
-  return (<>
-    <div className="container graph" style={{ "background": "#FFFFFF" }}>
-    </div>
-  </>)
-}
+import React from "react";
+import DatasetPannel from './components/dataset_pannel';
+import ResultsPannel from './components/results_pannel';
+import Parameter from './components/parameters';
+import './index.css';
 
 const App = () => {
+
   return (<>
     <h1>Machine Learning Playground</h1>
     <div id="flex-container">
       <div id="dataset-item" className="col">
-        <InteractiveGraph />
-        <DataSlider />
+        <DatasetPannel/>
       </div>
       <div id="parameter-item" className="col">
-        <Hyperprameter />
+        <Parameter/>
       </div>
       <div id="results-item" className="col">
-        <Hyperprameter />
-        <Graph />
-        <Graph />
+        <ResultsPannel/>
       </div>
     </div>
   </>
