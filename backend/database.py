@@ -1,25 +1,29 @@
 import sqlite3
+from os import path, remove
 
 
 class Database:
-    def __init__(self, table_name="models"):
-        self.conn = sqlite3.connect(":memory:", check_same_thread=False)
+    def __init__(self, database_name="database.db", table_name="models"):
+        exists = path.isfile(f"./{database_name}")
+
+        self.conn = sqlite3.connect(database_name, check_same_thread=False)
         self.db = self.conn.cursor()
         self.table_name = table_name
 
-        self.db.execute(f"""CREATE TABLE {self.table_name} (
-                id integer primary key,
-                model_type text,
-                model_path text,
-                x_train text,
-                y_train text,
-                x_test text,
-                y_test text
-            )""")
+        if not exists:
+            self.db.execute(f"""CREATE TABLE {self.table_name} (
+                    id integer primary key,
+                    model_type text,
+                    model_path text,
+                    x_train text,
+                    y_train text,
+                    x_test text,
+                    y_test text
+                )""")
 
     def insert(self, row):
         self.db.execute(
-            f"""INSERT INTO {self.table_name} VALUES ({repr(row["id"])}, {repr(row["model_type"])}, {repr(row["model_path"])}, '{str(row["x_train"])}', '{str(row["y_train"])}', '{str(row["x_test"])}', '{str(row["y_train"])}')""")
+            f"""INSERT INTO {self.table_name} VALUES ({repr(row["id"])}, {repr(row["model_type"])}, {repr(row["model_path"])}, '{str(row["x_train"])}', '{str(row["y_train"])}', '{str(row["x_test"])}', '{str(row["y_test"])}')""")
         self.conn.commit()
         return self.db.lastrowid
 
@@ -27,6 +31,10 @@ class Database:
         self.db.execute(
             f"SELECT * FROM {self.table_name} WHERE id={repr(key)}")
         return self.db.fetchone()
+
+    def delete(self, key):
+        remove(self.retrieve(key)[2])
+        return self.db.execute(f"DELETE FROM {self.table_name} WHERE id={repr(key)}")
 
 
 if __name__ == "__main__":

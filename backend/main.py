@@ -6,8 +6,21 @@ import numpy as np
 from pydantic import BaseModel
 from fastapi import FastAPI, WebSocket
 from database import Database
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class Model(BaseModel):
@@ -60,10 +73,19 @@ async def train_model(websocket: WebSocket, model_id: str):
     y_test = torch.tensor(eval(y_test))
 
     for loss in model.train(x_train, y_train) or []:
-        await websocket.send_json({"loss": loss})
+        heatmap = model.heatmap()
+        tsne = model.tsne(x_train)
+        y_pred = model.predict(x_test)
+        accuracy = model.accuracy(y_pred, y_test)
+        await websocket.send_json({"loss": loss,
+                                   "heatmap": heatmap,
+                                   "tsne": tsne,
+                                   "accuracy": accuracy
+                                   })
 
-    y_pred = model.predict(x_test)
-    accuracy = model.accuracy(y_pred, y_test)
-    await websocket.send_json({"accuracy": accuracy})
+    # Deletes model + row in database to save memory
+    db.delete(model_id)
 
-    # Add Heat Map + TSNE
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app)

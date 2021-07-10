@@ -1,7 +1,7 @@
-from numpy.core.numeric import indices
+import numpy as np
 import torch
 import torch.nn as nn
-from sklearn import tree, neighbors, linear_model, metrics
+from sklearn import tree, neighbors, manifold, metrics
 import time
 
 
@@ -16,6 +16,27 @@ class BaseModel():
     def accuracy(self, y_true, y_pred):
         # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html
         return metrics.accuracy_score(y_true, y_pred)
+
+    def heatmap(self, x_lim=(-5, 5), y_lim=(-5, 5), resolution=0.1):
+
+        x = np.arange(x_lim[0], x_lim[1], resolution)
+        y = np.arange(y_lim[0], y_lim[1], resolution)
+        xy = np.array(np.meshgrid(x, y))
+        shape = xy[0].shape
+
+        z = []
+
+        for i in range(shape[0]):
+            x_batch = torch.from_numpy(xy[:, i, i:].T).float()
+            y_batch = self.forward(x_batch)
+            z.append(y_batch.tolist())
+
+        return z, xy[0].tolist(), xy[1].tolist()
+
+    def tsne(self, x_train):
+        x_raw = self.forward(x_train).detach().numpy()
+        xy_tsne = manifold.TSNE(n_components=2).fit_transform(x_raw)
+        return xy_tsne.tolist()
 
 
 class mlp(BaseModel, torch.nn.Module):
