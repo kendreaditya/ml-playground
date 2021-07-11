@@ -17,7 +17,7 @@ class BaseModel():
         # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html
         return metrics.accuracy_score(y_true, y_pred)
 
-    def heatmap(self, x_lim=(-5, 5), y_lim=(-5, 5), resolution=0.1):
+    def heatmap(self, x_lim=(-8.5, 8.5), y_lim=(-8.5, 8.5), resolution=(8.5*2)/285):
         self.model.eval()
 
         with torch.no_grad():
@@ -31,10 +31,11 @@ class BaseModel():
             for i in range(shape[0]):
                 x_batch = torch.from_numpy(xy[:, i, i:].T).float()
                 y_batch = self.forward(x_batch)
-                z.append(y_batch.tolist())
+                for x_i, y_i in zip(x_batch, y_batch):
+                    z.append([*x_i.tolist(), y_i.tolist()[0]])
 
         self.model.train()
-        return z, xy[0].tolist(), xy[1].tolist()
+        return z
 
     def tsne(self, x_train):
         self.model.eval()

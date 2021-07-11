@@ -1,8 +1,9 @@
 import React from 'react';
 import { scaleLinear } from 'd3-scale';
 import { extent } from 'd3-array';
-import './../interactive_graph/interactive_graph.css'
+import { YAxis, XAxis } from './Axis'
 
+// https://dev.to/julienassouline/let-s-get-started-with-react-and-d3-2nd7
 export const Point = ({x, y, color, key}) => {
   return (
     <circle className="point"
@@ -15,17 +16,19 @@ export const Point = ({x, y, color, key}) => {
     />)
 }
 
-export const Scatter = ({data, w, h, margin, colors}) => {
+export const Scatter = ({data, w, h, margin, colors, domain = {x: [-8.5, 8], y: [-8.5, 8]}}) => {
 
   const width = w - margin.right - margin.left,
     height = h - margin.top - margin.bottom;
 
   const xScale = scaleLinear()
-    .domain(extent(data.flat(), d => d.x))
+    // .domain(extent(data.flat(), d => d.x))
+    .domain((domain==="auto" ? extent(data.flat(), d=> d.x) : domain.x))
     .range([0, width]);
 
   const yScale = scaleLinear()
-    .domain(extent(data.flat(), d => d.y))
+    // .domain(extent(data.flat(), d => d.y))
+    .domain((domain==="auto" ? extent(data.flat(), d=> d.y) : domain.y))
     .range([height, 0]);
 
 
@@ -39,9 +42,11 @@ export const Scatter = ({data, w, h, margin, colors}) => {
   }, []);
 
   return (
-        <g transform={`translate(${margin.left},${margin.top})`}>
-          {points}
-        </g>
+          <>
+            <YAxis yScale={yScale} width={width} />
+            <XAxis xScale={xScale} height={height} />
+            {points}
+          </>
   );
 }
 
