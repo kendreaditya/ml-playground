@@ -28,7 +28,7 @@ export const Scatter = ({data, w, h, margin, colors, domain = {x: [-8.5, 8], y: 
 
   const yScale = scaleLinear()
     // .domain(extent(data.flat(), d => d.y))
-    .domain((domain==="auto" ? extent(data.flat(), d=> d.y) : domain.y))
+    .domain((domain==="auto" ? extent(data.flat(), d=> d.y) : domain.x))
     .range([height, 0]);
 
 
