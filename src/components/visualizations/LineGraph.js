@@ -1,10 +1,10 @@
 import React from "react";
 import { Chart } from "react-charts";
 
-const LossGraph = ({ loss }) => {
+const LineGraph = ({ x }) => {
     const data = [{
         label: "loss",
-        data: loss.map((value, idx) => ({
+        data: x.map((value, idx) => ({
             "primary": idx,
             "secondary": value 
         }))
@@ -30,4 +30,4 @@ const LossGraph = ({ loss }) => {
     );
 }
 
-export default LossGraph;
+export default LineGraph;

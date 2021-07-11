@@ -4,6 +4,7 @@ import { colors } from '../../consts';
 
 
 const ContourMap = ({points, meshgrid}) => {
+  console.log(meshgrid)
 
   var scatterPlots = points.x.reduce((clusters, x, i) => {
     clusters[points.y[i]].push({

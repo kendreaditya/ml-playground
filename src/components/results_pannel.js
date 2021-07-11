@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import LossGraph from './visualizations/LossGraph';
+import LineGraph from './visualizations/LineGraph';
 import ContourMap from './visualizations/ContourMap';
 import TSNE from './visualizations/TSNE';
 import { createModel } from "../communication/api";
@@ -21,6 +21,7 @@ const test_body = {
 
 const ResultsPannel= () => {
     const [loss, setLoss] = useState([])
+    const [accuracy, setAccuracy] = useState([])
     const [TSNE_points, setTSNE_points] = useState({x: [[0,0]], y:[0]})
     const [meshgrid, setMeshgrid] = useState([])
 
@@ -36,15 +37,14 @@ const ResultsPannel= () => {
         ws.onmessage = evt => {
             const data = JSON.parse(evt.data)
             setLoss(loss => {
-                // console.log(loss)
                 return [...loss, data.loss]
             })
 
-            setTSNE_points(TSNE => {
-                // console.log(data.tsne)
-                return {x: data.tsne, y: test_body.y_train}
-                
+            setAccuracy(accuracy => {
+                return [...accuracy, data.accuracy]
             })
+
+            setTSNE_points({x: data.tsne, y: test_body.y_train})
 
             setMeshgrid(data.heatmap)
         }
@@ -53,8 +53,8 @@ const ResultsPannel= () => {
 
     return (<>
             <button onClick={trainModel}>Train Me!</button>
-            <LossGraph loss={loss} />
-            <LossGraph loss={loss} />
+            <LineGraph x={loss} />
+            <LineGraph x={accuracy} />
             <ContourMap points={{x: test_body.x_train, y:test_body.y_train}} meshgrid={meshgrid}/>
             <TSNE points={TSNE_points}/>
         </>
