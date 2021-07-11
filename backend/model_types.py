@@ -18,24 +18,33 @@ class BaseModel():
         return metrics.accuracy_score(y_true, y_pred)
 
     def heatmap(self, x_lim=(-5, 5), y_lim=(-5, 5), resolution=0.1):
+        self.model.eval()
 
-        x = np.arange(x_lim[0], x_lim[1], resolution)
-        y = np.arange(y_lim[0], y_lim[1], resolution)
-        xy = np.array(np.meshgrid(x, y))
-        shape = xy[0].shape
+        with torch.no_grad():
+            x = np.arange(x_lim[0], x_lim[1], resolution)
+            y = np.arange(y_lim[0], y_lim[1], resolution)
+            xy = np.array(np.meshgrid(x, y))
+            shape = xy[0].shape
 
-        z = []
+            z = []
 
-        for i in range(shape[0]):
-            x_batch = torch.from_numpy(xy[:, i, i:].T).float()
-            y_batch = self.forward(x_batch)
-            z.append(y_batch.tolist())
+            for i in range(shape[0]):
+                x_batch = torch.from_numpy(xy[:, i, i:].T).float()
+                y_batch = self.forward(x_batch)
+                z.append(y_batch.tolist())
 
+        self.model.train()
         return z, xy[0].tolist(), xy[1].tolist()
 
     def tsne(self, x_train):
-        x_raw = self.forward(x_train).detach().numpy()
-        xy_tsne = manifold.TSNE(n_components=2).fit_transform(x_raw)
+        self.model.eval()
+
+        with torch.no_grad():
+            x_raw = self.forward(x_train).detach().numpy()
+            xy_tsne = manifold.TSNE(
+                n_components=2, random_state=100).fit_transform(x_raw)
+
+        self.model.train()
         return xy_tsne.tolist()
 
 

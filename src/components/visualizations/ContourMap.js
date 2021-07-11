@@ -1,18 +1,18 @@
-import React from "react";
-import { Scatter } from './ScatterPlot';
+import React from 'react';
+import { Scatter } from './ScatterPlot'
 import { colors } from '../../consts';
 
 
-const TSNE = ({ points }) => {
+const ContourMap = ({points, meshgrid}) => {
 
-    var scatterPlots = points.x.reduce((clusters, x, i) => {
-      clusters[points.y[i]].push({
-        x: x[0],
-        y: x[1]
-      })
+  var scatterPlots = points.x.reduce((clusters, x, i) => {
+    clusters[points.y[i]].push({
+      x: x[0],
+      y: x[1]
+    })
 
-      return clusters
-    }, Array.from(Array(Math.max(...points.y)+1), () => []));
+    return clusters
+  }, Array.from(Array(Math.max(...points.y)+1), () => []));
 
   
   return (
@@ -31,7 +31,6 @@ const TSNE = ({ points }) => {
       </svg>
     </div>
   )
-
 }
 
-export default TSNE;
+export default ContourMap;
