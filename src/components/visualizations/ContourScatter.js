@@ -7,10 +7,10 @@ import ContourMap from './ContourMap';
 const ContourScatter = ({points, meshgrid}) => {
 
   const margin = {
-              top: 5,
-              bottom: 30,
-              left: 30,
-              right: 5
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0
             }
 
   var scatterPlots = points.x.reduce((clusters, x, i) => {
@@ -25,7 +25,7 @@ const ContourScatter = ({points, meshgrid}) => {
   
   return (
     <div className="container" style={{ "background": "#FFFFFF", "width": "20em", "height": "20em" }}>
-      <svg width={320} height={320} style={{position: "absolute", zIndex: 2}}>
+      <svg width={320} height={320} style={{position: "absolute", zIndex: 2}} style={{overflow: "visible"}}>
         <g transform={`translate(${margin.left},${margin.top})`}>
           <Scatter data={scatterPlots} colors={colors} w={320} h={320} margin={margin}/>
         </g>

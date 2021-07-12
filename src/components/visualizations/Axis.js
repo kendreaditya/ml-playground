@@ -2,7 +2,7 @@ import React from "react";
 
 // https://dev.to/julienassouline/let-s-get-started-with-react-and-d3-2nd7
 export const YAxis = ({ yScale, width }) => {
-    const textPadding = -20;
+    const textPadding = -15;
 
     const axis = yScale.ticks(5).map((d, i) => (
         <g key={i} className="y-tick">

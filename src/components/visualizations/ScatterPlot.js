@@ -16,21 +16,18 @@ export const Point = ({x, y, color, key}) => {
     />)
 }
 
-export const Scatter = ({data, w, h, margin, colors, domain = {x: [-8.5, 8], y: [-8.5, 8]}}) => {
+export const Scatter = ({data, w, h, margin, colors, domain = {x: [-5, 5], y: [-5, 5], scale: false}}) => {
 
   const width = w - margin.right - margin.left,
     height = h - margin.top - margin.bottom;
 
   const xScale = scaleLinear()
-    // .domain(extent(data.flat(), d => d.x))
-    .domain((domain==="auto" ? extent(data.flat(), d=> d.x) : domain.x))
+    .domain((domain.scale ? extent(data.flat(), d=>d.x) : domain.x))
     .range([0, width]);
 
   const yScale = scaleLinear()
-    // .domain(extent(data.flat(), d => d.y))
-    .domain((domain==="auto" ? extent(data.flat(), d=> d.y) : domain.x))
+    .domain((domain.scale ? extent(data.flat(), d=>d.y) : domain.y))
     .range([height, 0]);
-
 
   const points = data.reduce((points, cluster, cluster_i) => {
 
