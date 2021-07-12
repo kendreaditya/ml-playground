@@ -18,6 +18,15 @@ export const Point = ({x, y, color, key}) => {
 
 export const Scatter = ({data, w, h, margin, colors, domain = {x: [-5, 5], y: [-5, 5], scale: false}}) => {
 
+  if(!data && !data[0]){
+    return (
+            <>
+              <YAxis yScale={yScale} width={width} />
+              <XAxis xScale={xScale} height={height} />
+            </>
+    );
+  }
+
   const width = w - margin.right - margin.left,
     height = h - margin.top - margin.bottom;
 

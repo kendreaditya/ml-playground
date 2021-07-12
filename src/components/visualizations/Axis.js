@@ -1,12 +1,11 @@
 import React from "react";
 
 // https://dev.to/julienassouline/let-s-get-started-with-react-and-d3-2nd7
-export const YAxis = ({ yScale, width }) => {
-    const textPadding = -15;
+export const YAxis = ({ yScale, width, textPadding=-15, lines=true }) => {
 
-    const axis = yScale.ticks(5).map((d, i) => (
+    const axis = yScale.ticks(8).map((d, i) => (
         <g key={i} className="y-tick">
-            {d===0 ? 
+            {d===0 && lines ? 
             <line
                 style={{ stroke: "#e4e5eb" }}
                 y1={yScale(d)}
@@ -15,7 +14,7 @@ export const YAxis = ({ yScale, width }) => {
                 x2={width}
             /> : null}
 
-            {i===0 ? 
+            {i===0 && lines ? 
             <line
                 style={{ stroke: "#e4e5eb" }}
                 y1={width}
@@ -45,10 +44,9 @@ export const YAxis = ({ yScale, width }) => {
   return <>{axis}</>;
 }
 
-export const XAxis = ({ xScale, height}) => {
-    const textPadding = 10;
+export const XAxis = ({ xScale, height, textPadding=10}) => {
 
-    const axis = xScale.ticks(10).map((d, i) => (
+    const axis = xScale.ticks(8).map((d, i) => (
         <g className="x-tick" key={i}>
             {d===0 ?
             <line

@@ -25,12 +25,12 @@ const ContourScatter = ({points, meshgrid}) => {
   
   return (
     <div className="container" style={{ "background": "#FFFFFF", "width": "20em", "height": "20em" }}>
-      <svg width={320} height={320} style={{position: "absolute", zIndex: 2}} style={{overflow: "visible"}}>
+      <ContourMap meshgrid={meshgrid} w={320} h={320} margin={margin} style={{position: "absolute", zIndex: 1}}/>
+      <svg width={320} height={320} style={{position: "absolute", zIndex: 2, overflow: "visible"}}>
         <g transform={`translate(${margin.left},${margin.top})`}>
           <Scatter data={scatterPlots} colors={colors} w={320} h={320} margin={margin}/>
         </g>
       </svg>
-      <ContourMap meshgrid={meshgrid} w={320} h={320} margin={margin}/>
     </div>
   )
 }

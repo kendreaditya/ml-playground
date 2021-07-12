@@ -23,6 +23,7 @@ const ResultsPannel= () => {
     const [loss, setLoss] = useState([])
     const [accuracy, setAccuracy] = useState([])
     const [TSNE_points, setTSNE_points] = useState({x: [[0,0]], y:[0]})
+    // const [TSNE_points, setTSNE_points] = useState({x: [], y:[]})
     const [meshgrid, setMeshgrid] = useState([])
 
     const trainModel = async () => {

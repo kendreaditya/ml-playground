@@ -6,7 +6,7 @@ const ContourMap = ({ meshgrid, w, h , margin}) => {
         if(!canvas || meshgrid.length === 0)
             return;
         const ctx = canvas.getContext('2d');
-        const imageData = ctx.createImageData(285, 285);
+        const imageData = ctx.createImageData(w, h);
 
         // Iterate through every pixel
         let m = 0
@@ -36,13 +36,14 @@ const ContourMap = ({ meshgrid, w, h , margin}) => {
 
     return (
         <>
-            <canvas ref={canvas=>drawContour(canvas)} height={285} width={285}
+            <canvas ref={canvas=>drawContour(canvas)} height={h} width={w}
             style={{position: "absolute", 
                 zIndex: 1,
                 marginTop: margin.top,
                 marginBottom: margin.bottom,
                 marginLeft: margin.left,
-                marginRight: margin.right
+                marginRight: margin.right,
+                borderRadius: 10,
                 }}
             />
         </>
