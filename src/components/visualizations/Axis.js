@@ -6,31 +6,31 @@ export const YAxis = ({ yScale, width }) => {
 
     const axis = yScale.ticks(5).map((d, i) => (
         <g key={i} className="y-tick">
-        {d===0 ? 
-        <line
-            style={{ stroke: "#e4e5eb" }}
-            y1={yScale(d)}
-            y2={yScale(d)}
-            x1={0}
-            x2={width}
-        /> : null}
+            {d===0 ? 
+            <line
+                style={{ stroke: "#e4e5eb" }}
+                y1={yScale(d)}
+                y2={yScale(d)}
+                x1={0}
+                x2={width}
+            /> : null}
 
-        {i===0 ? 
-        <line
-            style={{ stroke: "#e4e5eb" }}
-            y1={width}
-            y2={width}
-            x1={0}
-            x2={width}
-        /> : null}
+            {i===0 ? 
+            <line
+                style={{ stroke: "#e4e5eb" }}
+                y1={width}
+                y2={width}
+                x1={0}
+                x2={width}
+            /> : null}
 
-        <line
-            style={{ stroke: "#e4e5eb" }}
-            y1={yScale(d)}
-            y2={yScale(d)}
-            x1={-7.5}
-            x2={0}
-        />
+            <line
+                style={{ stroke: "#e4e5eb" }}
+                y1={yScale(d)}
+                y2={yScale(d)}
+                x1={-7.5}
+                x2={0}
+            />
 
         <text
             style={{ fontSize: 12 }}

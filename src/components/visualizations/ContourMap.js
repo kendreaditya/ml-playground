@@ -30,8 +30,6 @@ const ContourMap = ({ meshgrid, w, h , margin}) => {
                 break
         }
 
-        console.log("lol")
-
         // Draw image data to the canvas
         ctx.putImageData(imageData, 0, 0);
     }

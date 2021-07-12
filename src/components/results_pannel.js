@@ -3,8 +3,8 @@ import LineGraph from './visualizations/LineGraph';
 import ContourScatter from './visualizations/ContourScatter';
 import TSNE from './visualizations/TSNE';
 import { createModel } from "../communication/api";
-// import {TrainWebsocket} from "../communication/websocket";
 import { trainWebsocket } from "../communication/websocket";
+import { colors } from "../consts";
 
 import useWebSocket from 'react-use-websocket';
 import { BASE_URL } from '../consts';
@@ -53,8 +53,8 @@ const ResultsPannel= () => {
 
     return (<>
             <button onClick={trainModel}>Train Me!</button>
-            <LineGraph x={loss} />
-            <LineGraph x={accuracy} />
+            <LineGraph x={loss} color={colors[0]}/>
+            <LineGraph x={accuracy} color={colors[0]} domain={[0, 1]}/>
             <ContourScatter points={{x: test_body.x_train, y:test_body.y_train}} meshgrid={meshgrid}/>
             <TSNE points={TSNE_points}/>
         </>
