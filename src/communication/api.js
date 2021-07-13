@@ -35,5 +35,5 @@ export const modelParameters = () => {
       headers: myHeaders,
     };
 
-    return fetch(GET_MODEL_PARAMETERS, requestOptions).then(res => res.text())
+    return fetch(GET_MODEL_PARAMETERS, requestOptions).then(res => res.json())
 }

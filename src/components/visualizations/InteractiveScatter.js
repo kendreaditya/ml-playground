@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { scaleLinear } from 'd3-scale';
 import { colors } from '../../consts';
 import { Scatter } from './ScatterPlot'
@@ -8,8 +8,6 @@ import '../../index.css'
 const InteractiveGraph = () => {
     const [mouseDown, setMouseDown] = useState(false);
     const [scatterPlots, setScatterPlots] = useState({data: [[{x: 0, y: 0}]], count: 0})
-    const [points, setPoints] = useState([]);
-    const [pointClusters, setPointClusters] = useState([]);
     const [cluster, setCluster] = useState(0);
     const points_max = 500;
 
@@ -58,19 +56,6 @@ const InteractiveGraph = () => {
             }
     }
 
-    // var scatterPlots = points.reduce((clusters, x, i) => {
-    //   clusters[points.y[i]].push({
-    //     x: x[0],
-    //     y: x[1]
-    //   })
-
-    //   return clusters
-    // }, Array.from(Array(Math.max(...points.y)+1), () => []));
-
-    const toScatter = (scatterPlots) => {
-        
-    }
-    
     return (<>
         <div className="colors">
                 {colors.map((color, idx) => (

@@ -1,16 +1,11 @@
 import ReactDOM from 'react-dom';
-import React, {useEffect} from "react";
+import React from "react";
 import DatasetPannel from './components/DatasetPannel';
 import ResultsPannel from './components/ResultsPannel';
 import Parameters from './components/ModelParameters';
 import './index.css';
-import { modelParameters } from './communication/api';
 
 const App = () => {
-
-  const modelParams = () => {
-    return modelParameters() 
-  }
 
   return (<>
     <h1>Machine Learning Playground</h1>
@@ -19,7 +14,7 @@ const App = () => {
         <DatasetPannel/>
       </div>
       <div id="parameter-item" className="col">
-        <Parameters parameters={modelParams()}/>
+        <Parameters/>
       </div>
       <div id="results-item" className="col">
         <ResultsPannel/>

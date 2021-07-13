@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import LineGraph from './visualizations/LineGraph';
 import ContourScatter from './visualizations/ContourScatter';
 import TSNE from './visualizations/TSNE';

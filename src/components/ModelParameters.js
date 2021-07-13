@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { models } from "../consts";
 
-const Dropdown = ({label, param}) => {
+const Dropdown = ({label, param, onChange=()=>{}}) => {
   return (
     <>
       <p>{label}</p>
-      <select>
+      <select onChange={onChange}>
         {param.option.map((option) => <option value={option}>{option}</option>)}
       </select>
     </>
@@ -20,40 +21,26 @@ const Input = ({label, param}) => {
     )
 }
 
+const renderParameters = (params) => {
+  return Object.keys(params).map((key) => {
+    const param = params[key]
+    if(Array.isArray(param.option)) {
+      return <Dropdown label={key} param={param}/>
+    }
+    else {
+      return <Input label={key} param={param}/>
+    }
+  })
+}
 
+const Parameters = () => {
+  const [modelType, setModelType] = useState(models.types[0])
 
-
-const Parameters = ({parameters}) => {
-  const [modelType, setModelType] = useState()
-  const [modelParams, setModelParams] = useState()
-  var models = {"types": [modelType]};
-  
-  useEffect(async ()=>{
-    models = JSON.parse(await parameters); 
-    setModelType(() => {
-      const type = models.types[0]
-      setModelParams(renderParameters(models.params[type].params))
-      return type
-    })
-    console.log(models)
-  }, []);
-
-  const renderParameters = (params) => {
-    return Object.keys(params).map((key) => {
-      const param = params[key]
-      if(Array.isArray(param.option)) {
-        return <Dropdown label={key} param={param}/>
-      }
-      else {
-        return <Input label={key} param={param}/>
-      }
-    })
-  }
 
   return (<>
     <div className="container parameter" style={{ "background": "#FFFFFF" }}>
-      <Dropdown label={"Model Type"} param={{"option": models.types}}/>
-      {modelParams}
+      <Dropdown label={"Model Type"} param={{"option": models.types}} value={modelType} onChange={(event)=>setModelType(event.target.value)}/>
+      {renderParameters(models.params[modelType].params)}
     </div>
   </>)
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext, useState } from 'react';
+import React from 'react';
 
 const ContourMap = ({ meshgrid, w, h , margin}) => {
 

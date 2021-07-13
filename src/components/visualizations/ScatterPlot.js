@@ -18,6 +18,27 @@ export const Point = ({x, y, color, key}) => {
 
 export const Scatter = ({data, w, h, margin, colors, domain = {x: [-5, 5], y: [-5, 5], scale: false}}) => {
 
+  
+  const width = w - margin.right - margin.left,
+  height = h - margin.top - margin.bottom;
+  
+  const xScale = scaleLinear()
+  .domain((domain.scale ? extent(data.flat(), d=>d.x) : domain.x))
+  .range([0, width]);
+  
+  const yScale = scaleLinear()
+  .domain((domain.scale ? extent(data.flat(), d=>d.y) : domain.y))
+  .range([height, 0]);
+  
+  const points = data.reduce((points, cluster, cluster_i) => {
+    
+    cluster.map((point) => (
+      points.push(<Point x={xScale(point.x)} y={yScale(point.y)} color={colors[cluster_i]} key={points.length}/>)
+    ))
+    
+    return points;
+  }, []);
+  
   if(!data && !data[0]){
     return (
             <>
@@ -26,26 +47,6 @@ export const Scatter = ({data, w, h, margin, colors, domain = {x: [-5, 5], y: [-
             </>
     );
   }
-
-  const width = w - margin.right - margin.left,
-    height = h - margin.top - margin.bottom;
-
-  const xScale = scaleLinear()
-    .domain((domain.scale ? extent(data.flat(), d=>d.x) : domain.x))
-    .range([0, width]);
-
-  const yScale = scaleLinear()
-    .domain((domain.scale ? extent(data.flat(), d=>d.y) : domain.y))
-    .range([height, 0]);
-
-  const points = data.reduce((points, cluster, cluster_i) => {
-
-    cluster.map((point) => {
-      points.push(<Point x={xScale(point.x)} y={yScale(point.y)} color={colors[cluster_i]} key={points.length}/>)
-    })
-
-    return points;
-  }, []);
 
   return (
           <>

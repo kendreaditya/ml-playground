@@ -1,4 +1,3 @@
-import useWebSocket from 'react-use-websocket';
 import { BASE_URL } from '../consts';
 
 const SOCKET_URL = `ws://${BASE_URL}/model/train/`;
