@@ -1,7 +1,7 @@
 import { BASE_URL } from '../consts';
-import axios from 'axios';
 
 const POST_MODEL_URL = `http://${BASE_URL}/model/create/`;
+const GET_MODEL_PARAMETERS = `http://${BASE_URL}/model/parameters/`;
 
 export const createModel = ({model_type, x_train, y_train, x_test, y_test, params}) => {
     var myHeaders = new Headers();
@@ -24,4 +24,16 @@ export const createModel = ({model_type, x_train, y_train, x_test, y_test, param
     };
 
     return fetch(POST_MODEL_URL, requestOptions).then(res => res.text())
+}
+
+export const modelParameters = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+    };
+
+    return fetch(GET_MODEL_PARAMETERS, requestOptions).then(res => res.text())
 }

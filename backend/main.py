@@ -4,7 +4,7 @@ import model_types as model_types
 import torch
 import numpy as np
 from pydantic import BaseModel
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, params
 from database import Database
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -38,7 +38,57 @@ models = {"svm": model_types.svm, "mlp": model_types.mlp, "knn": model_types.knn
 db = Database()
 
 
-@app.post("/model/create")
+@app.get("/model/parameters")
+def model_parameters():
+    # How to get parameters names
+
+    params = {
+        "types": ["Suport Vector Machine (SVM)", "Multilayer Perceptron (MLP)", "Logistic Regression", "K-Nearest Neighbors (KNN)", "Decision Tree"],
+        "params": {
+            "Suport Vector Machine (SVM)": {
+                "param": "svm",
+                "params": {
+                    "Learning Rate": {"option": {"min": 0, "max": 1}, "param": "learning_rate"},
+                    "Epochs": {"option": {"min": 0, "max": 100}, "parm": "epoch"},
+                    "Batch Size": {"option": [8, 16, 32, 64, 128], "parm": "batch_size"},
+                    "Optimizer": {"option": ["Adam", "SGD"], "parm": "optimizer"},
+                }
+            },
+            "Multilayer Perceptron (MLP)": {
+                "param": "mlp",
+                "params": {
+                    "Learning Rate": {"option": {"min": 0, "max": 1}, "param": "learning_rate"},
+                    "Epochs": {"option": {"min": 0, "max": 100}, "parm": "epoch"},
+                    "Batch Size": {"option": [8, 16, 32, 64, 128], "parm": "batch_size"},
+                    "Optimizer": {"option": ["Adam", "SGD"], "parm": "optimizer"},
+                }
+            },
+            "Logistic Regression": {
+                "param": "logistic-regression",
+                "params": {
+                    "Learning Rate": {"option": {"min": 0, "max": 1}, "param": "learning_rate"},
+                    "Epochs": {"option": {"min": 0, "max": 100}, "parm": "epoch"},
+                    "Batch Size": {"option": [8, 16, 32, 64, 128], "parm": "batch_size"},
+                    "Optimizer": {"option": ["Adam", "SGD"], "parm": "optimizer"},
+                }
+            },
+            "K-Nearest Neighbors (KNN)": {
+                "param": "knn",
+                "params": {
+                    "Number of Neighbors": {"option": {"min": 1, "max": 50}, "parm": "n_neibhbors"}
+                }
+            },
+            "Decision Tree": {
+                "param": "decision-tree",
+                "params": {
+                }
+            }}
+    }
+
+    return params
+
+
+@ app.post("/model/create")
 def create_model(request: Model):
     model = models[request.model_type]
     model = model(**request.params)
@@ -59,7 +109,7 @@ def create_model(request: Model):
     return model.name
 
 
-@app.websocket("/model/train/{model_id}")
+@ app.websocket("/model/train/{model_id}")
 async def train_model(websocket: WebSocket, model_id: str):
     await websocket.accept()
 
