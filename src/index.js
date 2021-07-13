@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom';
 import React, {useEffect} from "react";
-import DatasetPannel from './components/dataset_pannel';
-import ResultsPannel from './components/results_pannel';
-import Parameters from './components/parameters';
+import DatasetPannel from './components/DatasetPannel';
+import ResultsPannel from './components/ResultsPannel';
+import Parameters from './components/ModelParameters';
 import './index.css';
 import { modelParameters } from './communication/api';
 

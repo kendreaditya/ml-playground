@@ -21,6 +21,8 @@ const Input = ({label, param}) => {
 }
 
 
+
+
 const Parameters = ({parameters}) => {
   const [modelType, setModelType] = useState()
   const [modelParams, setModelParams] = useState()
