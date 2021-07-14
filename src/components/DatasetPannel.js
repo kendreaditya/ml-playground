@@ -1,9 +1,9 @@
 import React from "react";
 import InteractiveGraph from './visualizations/InteractiveScatter'
 
-const DatasetPannel = () => {
+const DatasetPannel = ({onDatasetChange}) => {
   return (<>
-        <InteractiveGraph />
+        <InteractiveGraph onDatasetChange={onDatasetChange}/>
     </>
   )
 }

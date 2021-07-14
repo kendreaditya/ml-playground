@@ -54,7 +54,7 @@ const ResultsPannel= () => {
             <LineGraph x={loss} color={colors[0]}/>
             <LineGraph x={accuracy} color={colors[0]} domain={[0, 1]}/>
             <ContourScatter points={{x: test_body.x_train, y:test_body.y_train}} meshgrid={meshgrid}/>
-            <TSNE points={TSNE_points}/>
+            {/* <TSNE points={TSNE_points}/> */}
         </>
     )
 }

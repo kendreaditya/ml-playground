@@ -1,6 +1,6 @@
 #interactive-graph {
   display: inline-block;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   width: 20em;
   height: 20em;
 }
@@ -17,15 +17,46 @@
 .color {
   height: 20px;
   width: 20px;
-  margin: 2px;
+  margin: 4px 4px 4px 4px;
   border-radius: 50%;
   border: 0px solid white;
 }
 
+.color-col {
+  flex: 100%;
+}
+
+.colors {
+  display: flex;
+  flex-direction: row;
+}
+
+#reset-button {
+  float: right;
+  background-color: white;
+  color: #1967d2;
+  border-radius: 5px;
+  border-color: #7ea0fb;
+  border-style: solid;
+  height: 25px;
+}
+
+#reset-button:hover {
+  background-color: #eaf0fe;
+}
+
 .color:hover {
-  height: 20px;
-  width: 20px;
-  margin: 2px;
+  height: 22px;
+  width: 22px;
+  /* margin: 2px 4px 2px 4px; */
+  margin: 4px 4px 4px 2px;
   border-radius: 50%;
   border: 2px solid white;
+}
+
+.point-counter {
+  margin: 4px 4px 4px 2px;
+}
+
+.color-col {
 }

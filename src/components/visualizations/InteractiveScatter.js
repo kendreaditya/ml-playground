@@ -5,11 +5,13 @@ import { Scatter } from './ScatterPlot'
 import './visualizations.css';
 import '../../index.css'
 
-const InteractiveGraph = () => {
+const InteractiveGraph = ({onDatasetChange}) => {
     const [mouseDown, setMouseDown] = useState(false);
     const [scatterPlots, setScatterPlots] = useState({data: [[{x: 0, y: 0}]], count: 0})
     const [cluster, setCluster] = useState(0);
     const points_max = 500;
+
+    onDatasetChange(scatterPlots.data)
 
     const [w, h] = [320, 320];
 
@@ -58,11 +60,15 @@ const InteractiveGraph = () => {
 
     return (<>
         <div className="colors">
+            <div className="color-col">
                 {colors.map((color, idx) => (
                     <button className="color" style={{ backgroundColor: color }} onClick={() => (setCluster(idx))}></button>
                 ))}
-                <label>{scatterPlots.count}/{points_max}</label>
-                <button onClick={() => setScatterPlots({data: [[{x: 0, y: 0}]], count: 0})}>Reset</button>
+                <label id="point-count">{scatterPlots.count}/{points_max}</label>
+            </div>
+            <div className="color-col">
+                <button id="reset-button" onClick={() => setScatterPlots({data: [[{x: 0, y: 0}]], count: 0})}>Reset</button>
+            </div>
         </div>
         <div className="container" style={{ "background": "#FFFFFF", "width": "20em", "height": "20em" }}>
             <svg width={w} height={h} onMouseDown={() => setMouseDown(true)} onMouseUp={() => setMouseDown(false)} onMouseMove={addPoint} onClick={event => addPoint(event, true)} onMouseLeave={event => setMouseDown(false)} style={{overflow: "visible"}}>
