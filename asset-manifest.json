@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/ml-playground/static/css/main.093f72a7.chunk.css",
+    "main.js": "/ml-playground/static/js/main.2e9c55de.chunk.js",
+    "main.js.map": "/ml-playground/static/js/main.2e9c55de.chunk.js.map",
+    "runtime-main.js": "/ml-playground/static/js/runtime-main.6f7884bf.js",
+    "runtime-main.js.map": "/ml-playground/static/js/runtime-main.6f7884bf.js.map",
+    "static/js/2.096b3c27.chunk.js": "/ml-playground/static/js/2.096b3c27.chunk.js",
+    "static/js/2.096b3c27.chunk.js.map": "/ml-playground/static/js/2.096b3c27.chunk.js.map",
+    "index.html": "/ml-playground/index.html",
+    "static/css/main.093f72a7.chunk.css.map": "/ml-playground/static/css/main.093f72a7.chunk.css.map",
+    "static/js/2.096b3c27.chunk.js.LICENSE.txt": "/ml-playground/static/js/2.096b3c27.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6f7884bf.js",
+    "static/js/2.096b3c27.chunk.js",
+    "static/css/main.093f72a7.chunk.css",
+    "static/js/main.2e9c55de.chunk.js"
+  ]
+}
