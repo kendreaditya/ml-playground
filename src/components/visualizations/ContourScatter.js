@@ -29,6 +29,11 @@ const ContourScatter = ({points, meshgrid}) => {
     <div className="container" style={{ "background": "#FFFFFF", "width": "20em", "height": "20em" }}>
       <ContourMap meshgrid={meshgrid} w={320} h={320} margin={margin} style={{position: "absolute", zIndex: 1}}/>
       <svg width={320} height={320} style={{position: "absolute", zIndex: 2, overflow: "visible"}}>
+        <defs>
+            <filter id="blur">
+                <feGaussianBlur stdDeviation="50" />
+            </filter>
+        </defs>
         <g transform={`translate(${margin.left},${margin.top})`}>
           <Scatter data={scatterPlots} colors={colors} w={320} h={320} margin={margin}/>
         </g>

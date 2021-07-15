@@ -10,16 +10,16 @@ const TSNE = ({ points }) => {
                 bottom: 0,
                 left: 0,
                 right: 0
-            }
+    }
 
-    var scatterPlots = points.x.reduce((clusters, x, i) => {
+    var scatterPlots = (points.x.length !==0 ? points.x.reduce((clusters, x, i) => {
       clusters[points.y[i]].push({
         x: x[0],
         y: x[1]
-      })
+      }) 
 
       return clusters
-    }, Array.from(Array(Math.max(...points.y)+1), () => []));
+    }, Array.from(Array(Math.max(...points.y)+1), () => [])) : [])
 
   
   return (

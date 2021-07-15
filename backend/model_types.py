@@ -1,3 +1,4 @@
+from sqlite3.dbapi2 import connect
 import numpy as np
 import torch
 import torch.nn as nn
@@ -17,22 +18,27 @@ class BaseModel():
         # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html
         return metrics.accuracy_score(y_true, y_pred)
 
-    def heatmap(self, x_lim=(-8.5, 8.5), y_lim=(-8.5, 8.5), resolution=(8.5*2)/285):
+    def heatmap(self, x_lim=(-5, 5), y_lim=(5, -5), resolution=320):
         self.model.eval()
 
         with torch.no_grad():
-            x = np.arange(x_lim[0], x_lim[1], resolution)
-            y = np.arange(y_lim[0], y_lim[1], resolution)
+            x = np.linspace(x_lim[0], x_lim[1], resolution)
+            y = np.linspace(y_lim[0], y_lim[1], resolution)
             xy = np.array(np.meshgrid(x, y))
-            shape = xy[0].shape
 
             z = []
 
-            for i in range(shape[0]):
-                x_batch = torch.from_numpy(xy[:, i, i:].T).float()
+            # for x_i in x:
+            #     for y_i in y:
+            #         z_i = self.forward(torch.tensor([[x_i, y_i]]).float())
+            #         z_i = torch.sigmoid(z_i).tolist()[0][0]
+            #         z.append(z_i)
+
+            for i in range(resolution):
+                x_batch = torch.from_numpy(xy[:, i, 0:].T).float()
                 y_batch = self.forward(x_batch)
-                for x_i, y_i in zip(x_batch, y_batch):
-                    z.append([*x_i.tolist(), y_i.tolist()[0]])
+                y_batch = torch.sigmoid(y_batch).flatten().tolist()
+                z.append(y_batch)
 
         self.model.train()
         return z
@@ -41,7 +47,9 @@ class BaseModel():
         self.model.eval()
 
         with torch.no_grad():
-            x_raw = self.forward(x_train).detach().numpy()
+            x_raw = self.forward(x_train)
+            if isinstance(x_raw, torch.Tensor):
+                x_raw = x_raw.detach().numpy()
             xy_tsne = manifold.TSNE(
                 n_components=2, random_state=100).fit_transform(x_raw)
 
@@ -72,7 +80,7 @@ class mlp(BaseModel, torch.nn.Module):
                 self.optimizer.zero_grad()
                 # Why do I have to flatten here
                 output = self.forward(x_batch).flatten()
-                loss = criterion(output, y_batch)
+                loss = criterion(output, y_batch.float())
                 loss.backward()  # Backpropagation
                 self.optimizer.step()  # Optimize and adjust weights
 

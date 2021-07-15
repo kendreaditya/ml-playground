@@ -1,4 +1,6 @@
 import React from 'react';
+import {rgb, range} from 'd3';
+import { scaleLinear, scaleQuantize } from 'd3-scale';
 
 const ContourMap = ({ meshgrid, w, h , margin}) => {
 
@@ -8,29 +10,29 @@ const ContourMap = ({ meshgrid, w, h , margin}) => {
         const ctx = canvas.getContext('2d');
         const imageData = ctx.createImageData(w, h);
 
-        // Iterate through every pixel
-        let m = 0
-        for (let i = 0; i < imageData.data.length; i += 4) {
-            // Modify pixel data
-            if ((meshgrid[parseInt(m)][2] > 0.5)) { 
-                imageData.data[i + 0] = 126;  // R value
-                imageData.data[i + 1] = 160;    // G value
-                imageData.data[i + 2] = 251;  // B value
-                imageData.data[i + 3] = 255;  // A value
+        let tmpScale = scaleLinear()
+            .domain([0, .5, 1])
+            .range(["#DC7C71", "white", "#7EA0FB"])
+            .clamp(true);
+        let shades = range(0, 1 + 1E-9, 1 / 255).map(a => {
+            return tmpScale(a);
+        });
+        let colorScale = scaleQuantize()
+            .domain([0, 1])
+            .range(shades)
+        
+        for (let y = 0, p = -1; y < h; ++y) {
+            for (let x = 0; x < w; ++x) {
+                let value = meshgrid[x][y];
+
+                let c = rgb(colorScale(value));
+                imageData.data[++p] = c.r;
+                imageData.data[++p] = c.g;
+                imageData.data[++p] = c.b;
+                imageData.data[++p] = 255;
             }
-            else {
-                imageData.data[i + 0] = 233;  // R value
-                imageData.data[i + 1] = 121;    // G value
-                imageData.data[i + 2] = 111;  // B value
-                imageData.data[i + 3] = 255;  // A value
-            }
-            if(meshgrid.length-1 > m)
-                m += 0.5
-            else
-                break
         }
 
-        // Draw image data to the canvas
         ctx.putImageData(imageData, 0, 0);
     }
 

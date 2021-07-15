@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { models } from "../consts";
 
+const parseParam = {"string": String, "number": Number}
+
 const Dropdown = ({className, label, param, onChange=()=>{}}) => {
+  const paramType = parseParam[typeof(param.option[0])]
   if(param.param)
     onChange(param.option[0], param.param)
   return (
     <div className={className}>
       <p style={{marginBottom: "5px"}}>{label}</p>
-      <select onChange={(event) =>onChange(event.target.value, param.param)} className="input-parameter">
+      <select onChange={(event) =>onChange(paramType(event.target.value), param.param)} className="input-parameter">
         {param.option.map((option) => <option value={option}>{option}</option>)}
       </select>
     </div>

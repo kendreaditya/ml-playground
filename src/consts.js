@@ -2,7 +2,7 @@ import { List } from "@material-ui/core"
 import { range } from "d3"
 
 export const BASE_URL = "127.0.0.1:8000"
-export const colors = ["#729EFD", "#E9796F", "#b2c6fd", "#eab0aa"]
+export const colors = ["#729EFD", "#E9796F", "#647FC7", "#A95F56"]
 export const models = {
         "types": ["Suport Vector Machine (SVM)", "Multilayer Perceptron (MLP)", "Logistic Regression", "K-Nearest Neighbors (KNN)", "Decision Tree"],
         "params": {
@@ -36,7 +36,7 @@ export const models = {
             "K-Nearest Neighbors (KNN)": {
                 "param": "knn",
                 "params": {
-                    "Number of Neighbors": {"option": Array.from({length: 20}, (_, i) => i+1), "param": "n_neibhbors"}
+                    "Number of Neighbors": {"option": Array.from({length: 20}, (_, i) => i+1), "param": "n_neighbors"}
                 }
             },
             "Decision Tree": {

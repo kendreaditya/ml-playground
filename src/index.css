@@ -6,10 +6,10 @@
 h1 {
   position: relative;
   padding: 3px 3px 3px 3px;
-  margin: 10px 0px 15px 0px;
-  font-family: "BoingSemiBold", Helvetica, Arial, sans-serif;
+  margin: 30px 0px 15px 0px;
   font-size: 32px;
   line-height: 28px;
+  font-weight: normal;
   color: #1967d2;
   text-align: center;
 }

@@ -1,96 +1,43 @@
-# Machine Learning Playground
+<p align="center"><img src="assets/logo.png" width=150></p> 
+<h2 align="center">Machine Learning Playground</h2>
+<h4 align="center">A place to experiment with machine learning models.</h4>
 
-## Design
+<p align="center">
+	<img src="assets/screenshot.png">
+	<img src="assets/screenRecording.gif" width=300>
+</p>
 
-Endpoints:
-- POST /model/create
-    - Model Type
-        - SVM
-        - k-Nearest Neighbors
-        - Decision Trees
-        - Naive Bayes
-        - ANN
-        - Logistic Regression
-    - Epochs
-        - 1-100
-    - Batch Size
-        - 16, 32, 64, 128
-    - Optimizer
-        - SGD or ADAM
-    Return Model ID
+## Description
 
-- GET /model/:model_id/epoch/1
-    - Loss Value
-    - Accuracy %
-    - Gradient Map
-        - Matrix (2d array)
-    - TSNE
-        - [tsne_x, tsne_y, cluster] for every point
+A machine learning playground using React.js and d3 for visualizing different algorithms that has a low-level dataset creation tool for generating a custom 2-cluster dataset for training. Yuo can train models ranging from SVMs, KNNs, and Naive Bayes to and MLPs (implamented using Pytorch and Scikit-Learn). The app uses a FastAPI backend with a websocket for visualizing model results in real-time and a SQLite database for storing the model data and metrics.
 
+## Structure
 
-## Available Scripts
+| Codebase        |   Description   |
+| :-------------- | :-------------: |
+| [app]()            |   Playground   |
+| [fastAPI](backend) | fastAPI Backend |
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+You can install Heart Face the following method:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone the Repo and cd into it
+   ```
+   git clone https://github.com/kendreaditya/ml-playground.git
+   cd ml-playground
+   ```
+2. Run the frontend app
+   ```
+   npm start
+   ```
+3. Run the backend
+   ```
+   cd backend
+   uvicorn main:app
+   ```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Contribution
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Whether you have ideas, translations, design changes, code cleaning, or real heavy code changes, help is always welcome.
+The more is done the better it gets!

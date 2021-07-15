@@ -36,16 +36,15 @@ const InteractiveGraph = ({onDatasetChange}) => {
 
     const addPoint = (evt, onClick=false) => {
         if((mouseDown || onClick) && scatterPlots.count < points_max) {
-        
-
             var e = evt.target;
             var dim = e.getBoundingClientRect();
-            var x = evt.clientX - dim.left;
-            var y = evt.clientY - dim.top;
+            var x = xScale(evt.clientX - dim.left);
+            var y = yScale(evt.clientY - dim.top);
 
+            if(x>-4.70 && y<4.70) {
             setScatterPlots(previousPlot => {
                     const newPlot = JSON.parse(JSON.stringify(previousPlot))
-                    const xy = {x: xScale(x), y: yScale(y)}
+                    const xy = {x: x, y: y}
 
                     if(newPlot.data.length-1 >= cluster)
                         newPlot.data[cluster].push(xy)
@@ -55,6 +54,7 @@ const InteractiveGraph = ({onDatasetChange}) => {
                     newPlot.count++
                     return newPlot
                 })
+                }
             }
     }
 

@@ -42,6 +42,7 @@ const apiBody = (dataset, parameters, split) => {
     parameters["x_train"] = x_test.splice(0, split_idx)
     parameters["x_test"] = x_test
 
+    console.log(parameters)
     return parameters
 }
 
@@ -50,7 +51,7 @@ var dataset;
 const ResultsPannel= ({getDataset, getParameters, getSplit}) => {
     const [loss, setLoss] = useState([])
     const [accuracy, setAccuracy] = useState([])
-    const [TSNE_points, setTSNE_points] = useState({x: [[0,0]], y:[0]})
+    const [TSNE_points, setTSNE_points] = useState({x: [], y:[]})
     const [meshgrid, setMeshgrid] = useState([])
 
     const trainModel = async () => {
@@ -81,6 +82,8 @@ const ResultsPannel= ({getDataset, getParameters, getSplit}) => {
 
             setMeshgrid(data.heatmap)
         }
+
+        ws.onclose = () => console.log("disconnect");
     }
     
 
