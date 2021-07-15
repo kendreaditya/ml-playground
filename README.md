@@ -11,6 +11,8 @@
 
 A machine learning playground using React.js and d3 for visualizing different algorithms that has a low-level dataset creation tool for generating a custom 2-cluster dataset for training. Yuo can train models ranging from SVMs, KNNs, and Naive Bayes to and MLPs (implamented using Pytorch and Scikit-Learn). The app uses a FastAPI backend with a websocket for visualizing model results in real-time and a SQLite database for storing the model data and metrics.
 
+See a demo [here](https://kendreaditya.github.io/ml-playground/) (please note that there is no backend running).
+
 ## Structure
 
 | Codebase        |   Description   |
