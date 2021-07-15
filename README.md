@@ -4,7 +4,7 @@
 
 <p align="center">
 	<img src="assets/screenshot.png">
-	<img src="assets/screenRecording.gif" width=300>
+	<img src="assets/screenRecording.gif">
 </p>
 
 ## Description
