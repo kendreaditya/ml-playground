@@ -5,22 +5,24 @@ import ContourMap from './ContourMap';
 
 
 const ContourScatter = ({points, meshgrid}) => {
-
   const margin = {
               top: 0,
               bottom: 0,
               left: 0,
               right: 0
-            }
+  }
 
-  var scatterPlots = points.x.reduce((clusters, x, i) => {
-    clusters[points.y[i]].push({
-      x: x[0],
-      y: x[1]
-    })
+  if(!points || points.length === 0)  {
+    var scatterPlots = [];
+  } else { 
+    var scatterPlots = [["x_train", "y_train"],["x_test", "y_test"]].reduce((clusters, [x_key, y_key], idx) => {
+      points[x_key].map((point, point_idx) => {
+        clusters[points[y_key][point_idx] + (idx===1?2:idx)].push({x: point[0], y: point[1]})
+      })
+      return clusters
+    }, [[], [], [], []])
 
-    return clusters
-  }, Array.from(Array(Math.max(...points.y)+1), () => []));
+  }
 
   
   return (

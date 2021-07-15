@@ -103,8 +103,8 @@ class svm(BaseModel, torch.nn.Module):
             self.model.parameters(), lr=self.learning_rate)
 
     def train(self, X, Y):
-        X = torch.FloatTensor(X)
-        Y = torch.FloatTensor(Y)
+        X = torch.tensor(X).float()
+        Y = torch.tensor(Y).float()
         N = len(Y)
 
         optimizer = torch.optim.SGD(

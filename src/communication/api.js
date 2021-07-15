@@ -23,7 +23,7 @@ export const createModel = ({model_type, x_train, y_train, x_test, y_test, param
       body: body,
     };
 
-    return fetch(POST_MODEL_URL, requestOptions).then(res => res.text())
+    return fetch(POST_MODEL_URL, requestOptions).then(res => res.text()).catch(err => console.log(err))
 }
 
 export const modelParameters = () => {

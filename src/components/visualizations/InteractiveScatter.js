@@ -7,7 +7,7 @@ import '../../index.css'
 
 const InteractiveGraph = ({onDatasetChange}) => {
     const [mouseDown, setMouseDown] = useState(false);
-    const [scatterPlots, setScatterPlots] = useState({data: [[{x: 0, y: 0}]], count: 0})
+    const [scatterPlots, setScatterPlots] = useState({data: [], count: 0})
     const [cluster, setCluster] = useState(0);
     const points_max = 500;
 
@@ -61,13 +61,13 @@ const InteractiveGraph = ({onDatasetChange}) => {
     return (<>
         <div className="colors">
             <div className="color-col">
-                {colors.map((color, idx) => (
+                {colors.slice(0,2).map((color, idx) => (
                     <button className="color" style={{ backgroundColor: color }} onClick={() => (setCluster(idx))}></button>
                 ))}
                 <label id="point-count">{scatterPlots.count}/{points_max}</label>
             </div>
             <div className="color-col">
-                <button id="reset-button" onClick={() => setScatterPlots({data: [[{x: 0, y: 0}]], count: 0})}>Reset</button>
+                <button id="reset-button" onClick={() => setScatterPlots({data: [], count: 0})}>Reset</button>
             </div>
         </div>
         <div className="container" style={{ "background": "#FFFFFF", "width": "20em", "height": "20em" }}>

@@ -35,20 +35,20 @@ const renderParameters = (params, onChange) => {
   })
 }
 
-const Parameters = () => {
+const Parameters = ({onParameterChange}) => {
   const [modelType, setModelType] = useState(models.types[0])
   // JSON of parametners -> resets on modelType change
   // const [modelParameters, setModelParameters] = useState({})
-  var modelParameters = {}; 
+  var modelParameters = {"model_type": models.params[modelType].param, "params": {}}; 
 
   const addModelParameters = (value, param) => {
-    modelParameters[param] = value;
+    modelParameters.params[param] = value;
+    onParameterChange(modelParameters)
   }
 
+  React.useEffect(()=>onParameterChange(modelParameters), [modelParameters])
+
   return (<>
-    <div className="parameter">
-      <button id="train-button">Train Me!</button>
-    </div>
     <div className="container parameter" style={{ "background": "#FFFFFF" }}>
       <Dropdown label={"Model Type"} param={{"option": models.types}} value={modelType} onChange={(value, _)=>setModelType(value)}/>
       <div className="parameters">
